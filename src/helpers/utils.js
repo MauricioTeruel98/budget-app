@@ -5,7 +5,3 @@
         currency: 'USD',
         minimumFractionDigits: 2
     });
-
-
-    
-

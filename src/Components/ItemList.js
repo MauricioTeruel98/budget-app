@@ -72,9 +72,13 @@ const ItemList = ({ item, setItem }) => {
     }
 
     let { concept, amount, type, create_time } = item
-    const handleUpdate = id => {
+    const handleUpdate = id => { 
         //validación de los datos
         amount = parseFloat(amount, 10)
+
+        var today = new Date();
+        var dateForm = Date.parse(create_time);
+
         if (concept === '' || amount <= 0 || type === '' || create_time === '') {
             swal(
                 '',
@@ -83,18 +87,11 @@ const ItemList = ({ item, setItem }) => {
             );
             return;
 
-        }else {
+        }else if(dateForm > today){
 
-            if(type.value !== type){
+            alert('The date cannot be greater than the current date');
 
-                swal(
-                    '',
-                    'The TYPE field cannot be modified',
-                    'warning'
-                );
-                return;
-    
-            } 
+        }else{
 
             swal({
                 title: "Are you sure?",
@@ -114,6 +111,8 @@ const ItemList = ({ item, setItem }) => {
                         fetch('http://localhost:3200/modify/' + id, requestInit)
                             .then(res => res.text())
                             .then(res => console.log(res));
+
+                        setListUpdated(true)
 
                         swal(
                             'Item Updated',
@@ -135,7 +134,6 @@ const ItemList = ({ item, setItem }) => {
                         )
                     }
                 });
-
 
         }
 

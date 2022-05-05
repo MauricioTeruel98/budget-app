@@ -15,12 +15,21 @@ const Form = ({ item, setItem }) => {
     const handleSubmit = () => {
         //validación de los datos
         amount = parseFloat(amount, 10)
+
+        var today = new Date();
+        var dateForm = Date.parse(create_time);
+
         if (concept === '' || amount <= 0 || type === '' || create_time === '') {
             alert(
                 'All fields are required'
             );
-            return
+
+        } else if (dateForm > today) {
+
+            alert('The date cannot be greater than the current date');
+
         } else {
+
             //consulta
             const requestInit = {
                 method: 'POST',
@@ -33,23 +42,24 @@ const Form = ({ item, setItem }) => {
                     .then(res => res.text())
                     .then(res => console.log(res))
             } else {
-                alert('Campo incorrecto, no se guardará')
+                alert("Wrong field, won't save")
             }
 
             swal(
                 'Item saved',
                 '',
                 'success'
-            )
-        }
+            );
 
-        //reiniciando state
-        setItem({
-            concept: '',
-            amount: '',
-            type: '',
-            date: ''
-        })
+            //reiniciando state
+            setItem({
+                concept: '',
+                amount: '',
+                type: '',
+                date: ''
+            })
+
+        }
 
     }
 
