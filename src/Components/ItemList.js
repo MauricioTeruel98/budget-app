@@ -83,16 +83,18 @@ const ItemList = ({ item, setItem }) => {
             );
             return;
 
-        }else if(type.value !== type){
+        }else {
 
-            swal(
-                '',
-                'The TYPE field cannot be modified',
-                'warning'
-            );
-            return;
+            if(type.value !== type){
 
-        } else {
+                swal(
+                    '',
+                    'The TYPE field cannot be modified',
+                    'warning'
+                );
+                return;
+    
+            } 
 
             swal({
                 title: "Are you sure?",

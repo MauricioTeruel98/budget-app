@@ -60,11 +60,10 @@ const Home = () => {
     egress.forEach((element) => {
         totalEgress += parseFloat(element['amount']);
     })
-
-    var balance = totalIngress - totalEgress;
-
+    
     // Then form the balance
-
+    
+    var balance = totalIngress - totalEgress;
 
     return (
 
