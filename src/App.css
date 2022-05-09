@@ -54,15 +54,8 @@
     text-decoration: underline;
 }
 
-.nav {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-}
-
 main {
-    padding-top: 5rem;
+    padding-top: 3rem;
 }
 
 .td {
@@ -75,6 +68,14 @@ main {
 
 .btn-del{
     width: 44px;
+}
+
+.btn-edit{
+    width: 76px;
+}
+
+.btn-clean{
+    margin-left: 20px;
 }
 
 @media(max-width: 575px){

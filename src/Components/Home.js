@@ -4,13 +4,13 @@ import { formatter } from '../helpers/utils';
 
 const Home = () => {
 
-    const [itemsIngress, setItemsIngress] = useState([])
+    const [itemsIngress, setItemsIngress] = useState([]);
 
-    const [itemsEgress, setItemsEgress] = useState([])
+    const [itemsEgress, setItemsEgress] = useState([]);
 
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState([]);
 
-    const [listUpdated, setListUpdated] = useState(false)
+    const [listUpdated, setListUpdated] = useState(false);
 
     useEffect(() => {
         const getItemsIngress = () => {
@@ -20,7 +20,7 @@ const Home = () => {
         }
         getItemsIngress()
         setListUpdated(false)
-    }, [listUpdated])
+    }, [listUpdated]);
 
     useEffect(() => {
         const getItems = () => {
@@ -30,7 +30,7 @@ const Home = () => {
         }
         getItems()
         setListUpdated(false)
-    }, [listUpdated])
+    }, [listUpdated]);
 
     useEffect(() => {
         const getItemsEgress = () => {
@@ -40,12 +40,12 @@ const Home = () => {
         }
         getItemsEgress()
         setListUpdated(false)
-    }, [listUpdated])
+    }, [listUpdated]);
 
 
     // Calculate the sum of all income
 
-    var ingress = itemsIngress
+    var ingress = itemsIngress;
     var totalIngress = 0;
 
     ingress.forEach((element) => {
@@ -54,7 +54,7 @@ const Home = () => {
 
     // Calculate the sum of all expenses
 
-    var egress = itemsEgress
+    var egress = itemsEgress;
     var totalEgress = 0;
 
     egress.forEach((element) => {
@@ -138,7 +138,7 @@ const Home = () => {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </div><br/>
                     <div className='balance-negative'>
                         <h2>Total Egress : - {formatter.format(totalEgress)}</h2>
                     </div><br/>
@@ -168,7 +168,7 @@ const Home = () => {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </div><br/>
                     <div className='balance-positive'>
                         <h2>Total Ingress : + {formatter.format(totalIngress)}</h2>
                     </div>

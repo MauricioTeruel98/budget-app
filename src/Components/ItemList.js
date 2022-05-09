@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import swal from "sweetalert";
 import { formatter } from '../helpers/utils';
+import swal from 'sweetalert';
 
-const ItemList = ({ item, setItem }) => {
+const ItemList = ({ setDataToEdit, setItem }) => {
 
     const [itemsIngress, setItemsIngress] = useState([])
 
@@ -30,8 +30,7 @@ const ItemList = ({ item, setItem }) => {
         }
         getItemsEgress()
         setListUpdated(false)
-    }, [listUpdated])
-
+    }, [listUpdated]);
 
     const handleDelete = id => {
 
@@ -52,13 +51,22 @@ const ItemList = ({ item, setItem }) => {
                         .then(res => res.text())
                         .then(res => console.log(res))
 
-                    setListUpdated(true) //Se actualiza la lista
+                    setListUpdated(true);
 
                     swal(
                         'Item Deleted',
                         'Item deleted successfully',
                         'success'
                     );
+
+                    //Restarting state
+                    
+                    setItem({
+                        concept: '',
+                        amount: '',
+                        type: '',
+                        date: ''
+                    });
 
                 } else {
                     swal(
@@ -67,77 +75,6 @@ const ItemList = ({ item, setItem }) => {
                 }
             });
 
-        setListUpdated(true);
-
-    }
-
-    let { concept, amount, type, create_time } = item
-    const handleUpdate = id => { 
-        //validación de los datos
-        amount = parseFloat(amount, 10)
-
-        var today = new Date();
-        var dateForm = Date.parse(create_time);
-
-        if (concept === '' || amount <= 0 || type === '' || create_time === '') {
-            swal(
-                '',
-                'All fields are required',
-                'warning'
-            );
-            return;
-
-        }else if(dateForm > today){
-
-            alert('The date cannot be greater than the current date');
-
-        }else{
-
-            swal({
-                title: "Are you sure?",
-                text: "You will update this record",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willUpdate) => {
-                    if (willUpdate) {
-
-                        const requestInit = {
-                            method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(item)
-                        }
-                        fetch('http://localhost:3200/modify/' + id, requestInit)
-                            .then(res => res.text())
-                            .then(res => console.log(res));
-
-                        setListUpdated(true)
-
-                        swal(
-                            'Item Updated',
-                            'Item Updated successfully',
-                            'success'
-                        );
-
-                        //reiniciando state
-                        setItem({
-                            concept: '',
-                            amount: '',
-                            type: '',
-                            create_time: ''
-                        })
-
-                    } else {
-                        swal(
-                            "Don't worry, it didn't get erased"
-                        )
-                    }
-                });
-
-        }
-
-        setListUpdated(true)
     }
 
     return (
@@ -159,7 +96,7 @@ const ItemList = ({ item, setItem }) => {
                     </thead>
                     <tbody className='tr'>
                         {itemsEgress.map(item => (
-                            <tr key={item.id} className='egress td'>
+                            <tr key={item.id} className='egress td' setDataToEdit={setDataToEdit}>
                                 <td>{item.id}</td>
                                 <td>{item.concept}</td>
                                 <td className='td-none'>{item.type}</td>
@@ -170,7 +107,7 @@ const ItemList = ({ item, setItem }) => {
                                         <button onClick={() => handleDelete(item.id)} className="btn-del btn-sm btn btn-danger">Del</button>
                                     </div>
                                     <div className="mb-2">
-                                        <button onClick={() => handleUpdate(item.id)} className="btn-sm btn btn-primary">Upd</button>
+                                        <button onClick={() => setDataToEdit(item)} className="btn-sm btn btn-primary">Upd</button>
                                     </div>
                                 </td>
                             </tr>
@@ -193,7 +130,7 @@ const ItemList = ({ item, setItem }) => {
                     </thead>
                     <tbody className='tr'>
                         {itemsIngress.map(item => (
-                            <tr key={item.id} className='ingress td'>
+                            <tr key={item.id} className='ingress td' setDataToEdit={setDataToEdit}>
                                 <td>{item.id}</td>
                                 <td>{item.concept}</td>
                                 <td className='td-none'>{item.type}</td>
@@ -204,7 +141,7 @@ const ItemList = ({ item, setItem }) => {
                                         <button onClick={() => handleDelete(item.id)} className="btn-del btn-sm btn btn-danger">Del</button>
                                     </div>
                                     <div className="mb-2">
-                                        <button onClick={() => handleUpdate(item.id)} className="btn-sm btn btn-primary">Upd</button>
+                                        <button onClick={() => setDataToEdit(item)} className="btn-sm btn btn-primary">Upd</button>
                                     </div>
                                 </td>
                             </tr>
