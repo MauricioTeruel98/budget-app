@@ -1,6 +1,6 @@
 CREATE DATABASE budgetapp
 
-CREATE TABLE fact(  
+CREATE TABLE items(  
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     concept VARCHAR(255) NOT NULL,
     amount VARCHAR(255) NOT NULL,

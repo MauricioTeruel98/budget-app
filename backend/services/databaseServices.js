@@ -10,7 +10,7 @@ const databaseService = () => {
         }
     });
 
-    const table = 'fact';
+    const table = 'items';
 
     const getAll = () => {
         return knex(table).select().orderBy('id','desc');
