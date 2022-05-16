@@ -26,7 +26,8 @@ const Form = ({ item, setItem, dataToEdit, setDataToEdit, handleUpdate, setListU
 
     let { concept, amount, type, create_time } = item;
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
         //Data validation
 
@@ -37,11 +38,11 @@ const Form = ({ item, setItem, dataToEdit, setDataToEdit, handleUpdate, setListU
 
         if (concept === '' || amount <= 0 || type === '' || create_time === '') {
 
-            alert('All fields are required');
+            swal('','All fields are required','warning');
 
         } else if (dateForm > today) {
 
-            alert('The date cannot be greater than the current date');
+            swal('','The date cannot be greater than the current date','warning');
 
         } else {
 
